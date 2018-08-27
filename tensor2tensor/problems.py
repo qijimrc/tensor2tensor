@@ -17,6 +17,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+# 注册所有problems及参数
 from tensor2tensor.data_generators import all_problems  # pylint: disable=unused-import
 from tensor2tensor.utils import registry
 

@@ -1117,6 +1117,7 @@ def transformer_ffn_layer(x,
 def transformer_base_v1():
   ipdb.set_trace()
   """Set of hyperparameters."""
+  # 还有一些更基础的参数在common hparams中
   hparams = common_hparams.basic_params1()
   hparams.norm_type = "layer"
   hparams.hidden_size = 512

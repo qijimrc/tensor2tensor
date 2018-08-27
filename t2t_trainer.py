@@ -21,7 +21,10 @@ from __future__ import print_function
 import contextlib
 import os
 import sys
+
+# 注册所有model以及每个model的所有参数设置的函数
 from tensor2tensor import models  # pylint: disable=unused-import
+# 注册所有problems以及每个problem的所有参数设置的函数
 from tensor2tensor import problems as problems_lib  # pylint: disable=unused-import
 from tensor2tensor.data_generators import problem  # pylint: disable=unused-import
 from tensor2tensor.utils import cloud_mlengine
@@ -123,8 +126,8 @@ FLAGS.hparams_set = 'transformer_base_single_gpu'
 FLAGS.train_steps = 1
 FLAGS.eval_steps = 1
 FLAGS.hparams='batch_size=1024'
-FLAGS.output_dir = '/home/miracle/NMT/AttentionIsAllYouNeed/output'
-FLAGS.data_dir = '/home/miracle/NMT/AttentionIsAllYouNeed/data'
+FLAGS.output_dir = '/home/qiji/NMT/AAN/output'
+FLAGS.data_dir = '/home/qiji/NMT/AAN/data'
 
 
 def set_hparams_from_args(args):

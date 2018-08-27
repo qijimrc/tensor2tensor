@@ -146,6 +146,10 @@ class T2TModel(base.Layer):
       return None
 
   def call(self, inputs, **kwargs):
+    '''
+    inputs['inputs']: [batch, seq_len_i, 1, 1]
+    inputs['targets']:[batch, seq_len_t, 1, 1]
+    '''
     ipdb.set_trace()
     del kwargs
     features = inputs
@@ -153,7 +157,9 @@ class T2TModel(base.Layer):
     tf.get_variable_scope().set_initializer(
         optimize.get_variable_initializer(self.hparams))
     with self._eager_var_store.as_default():
+      # 在features中将inputs_space_id和targets_space_id都设置为0
       self._fill_problem_hparams_features(features)
+
       sharded_features = self._shard_features(features)
       sharded_logits, losses = self.model_fn_sharded(sharded_features)
       if isinstance(sharded_logits, dict):
@@ -900,6 +906,8 @@ class T2TModel(base.Layer):
       if v_shape == [1]:
         v = tf.tile(v, tf.to_int32([self._num_datashards]))
       sharded_features[k] = self._data_parallelism(
+          # identity将输入转成tensor
+          # 这一步将特征划分成num_shards份用于并行(axis=0)
           tf.identity, tf.split(v, self._num_datashards, 0))
     return sharded_features
 
@@ -919,6 +927,7 @@ class T2TModel(base.Layer):
         features[k].append(v)
     return features
 
+  # 由trainer_lib调入
   @staticmethod
   def make_estimator_model_fn(model_name,
                               hparams,
@@ -940,6 +949,7 @@ class T2TModel(base.Layer):
 
     return wrapping_model_fn
 
+  # 由trainer_lib调入
   @classmethod
   def estimator_model_fn(cls,
                          hparams,

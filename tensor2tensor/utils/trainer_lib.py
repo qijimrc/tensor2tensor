@@ -72,6 +72,9 @@ def create_hparams(hparams_set,
   ipdb.set_trace()
   # 用命令行接收的超参数代替默认参数
   """Create HParams with data_dir and problem hparams, if kwargs provided."""
+
+  # 这一步，解析model中注册的所有hparams添加到当前hparams中
+  # registry._HPARAMS中存的是每个model注册hparams的函数,此步执行函数
   hparams = registry.hparams(hparams_set)()
   if data_dir:
     hparams.add_hparam("data_dir", data_dir)
@@ -85,6 +88,8 @@ def create_hparams(hparams_set,
   return hparams
 
 
+# 创建所有运行时的配置参数
+# 包括配置GPU并行等
 def create_run_config(master="",
                       model_dir=None,
                       iterations_per_loop=1000,

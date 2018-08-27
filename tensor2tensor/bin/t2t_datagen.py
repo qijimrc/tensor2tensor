@@ -50,8 +50,8 @@ import tensorflow as tf
 flags = tf.flags
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string("data_dir", "/home/miracle/NMT/AttentionIsAllYouNeed/data", "Data directory.")
-flags.DEFINE_string("tmp_dir", "/home/miracle/NMT/AttentionIsAllYouNeed/tmp",
+flags.DEFINE_string("data_dir", "/home/qiji/NMT/AAN/data", "Data directory.")
+flags.DEFINE_string("tmp_dir", "/home/qiji/NMT/AAN/tmp",
                     "Temporary storage directory.")
 flags.DEFINE_string("problem", "translate_enzh_wmt8k",
                     "The name of the problem to generate data for.")
